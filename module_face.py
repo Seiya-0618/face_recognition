@@ -30,10 +30,8 @@ class face_recognition():
             img2 = cv2.imread(img)
             #replace BGR to RGB
             img3 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
-            #plt.imshow(img3)
             result = DeepFace.analyze(img3,actions=['emotion','age','gender'])
             box = DeepFace.detectFace(img3, align=False)
-            #face = cv2.cvtColor(box, cv2.COLOR_BGR2RGB)
             box = np.clip(box * 255, 0, 255).astype(np.uint8)
             tmp = cv2.imwrite('result/result_img/'+ str(flag) + '.png', box)
             flag += 1
@@ -47,7 +45,7 @@ class face_recognition():
             df_emotion.loc[img] = emotion_list
             age_series.loc[img] = result['age']
             gender_series.loc[img] = result['gender']
-        #merge all df
+        #merge all dataframe
         output = pd.concat([df_emotion, age_series, gender_series],axis=1)
         output = output.reset_index(drop=True)
         self.output = output
