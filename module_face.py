@@ -12,9 +12,11 @@ class face_recognition():
 
         
     
-    def load_img(self):
+    def load_img(self, extension='jpeg'):
         #collect images by directory
-        self.a = glob.glob("./data/img/*.jpeg")
+        extension = str(extension)
+        self.a = glob.glob("./data/img/*." + extension)
+        return self.a
         
         
     def profile(self):
